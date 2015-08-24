@@ -1,13 +1,50 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
   <meta charset="UTF-8">
   <title>day #</title>
-  <link rel="stylesheet" href="css/myStyle.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/anotherstyle.css">
 </head>
 <body>
+  <div class="center" ng-controller="myController as myCtrl">
+    <table class="table">
+      <tr>
+        <td class="col-xs-3">
+          Periods:
+        </td>
+        <td class="col-xs-9">
+          <div class="col-xs-2" ng-repeat="sixDay in myCtrl.sixDays">
+            {{sixDay}}
+          </div>
+        </td>
+      </tr>
+      <tr ng-repeat="period in myCtrl.periods" ng-init="secondIndex = $index">
+        <td class="col-xs-3">
+          {{period}}
+        </td>
+        <td class="col-xs-9">
+          <span ng-repeat="course in myCtrl.courses">
+            <span ng-if="course.periodBegin === (secondIndex+1) && course.periodBegin !== course.periodEnd" ng-class="{hasContent:course.periodBegin === (secondIndex+1)}">
+              {{course.name}} @ {{course.periodBegin}}
+            </span>
+            <span ng-if="course.periodEnd === (secondIndex+1) && course.periodBegin !== course.periodEnd" ng-class="{hasContent:course.periodEnd === (secondIndex+1)}">
+              {{course.name}} @ {{course.periodEnd}}
+            </span>
+            <span ng-if="course.periodBegin === (secondIndex+1) && course.periodBegin === course.periodEnd" ng-class="{hasContent:course.periodBegin === (secondIndex+1)}">
+              {{course.name}} @ {{course.periodBegin}}
+            </span>
 
+          </span>
+        </td>
+      </tr>
+
+    </table>
+
+  </div>
 <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+  <script src="js/lib/angular/angular.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers/my-controller.js"></script>
 </body>
 </html>
